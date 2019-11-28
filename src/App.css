@@ -1,8 +1,13 @@
 .chatWindow {
-    width: 300px;
+    width: 600px;
     height: 300px;
     border: 2px solid red;
     overflow-y: scroll;
+}
+
+form {
+    padding: 20px;
+    
 }
 
 main {

@@ -6,7 +6,6 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      // userName: "",
       chat: [],
       userInput: "",
     }
@@ -23,36 +22,42 @@ class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     
-    const dbref = firebase.database().ref();
-    const messageToBe = this.state.userInput
-
-    if (messageToBe !== "") {
-      dbref.push(messageToBe)
+    const dbref = firebase.database().ref("/chatDefault");
+    const messageObject = {
+      "messageToBe": this.state.userInput,
+      "timeOfMessage": new Date().toLocaleString("en-US"),
+    }
+    
+    if (this.state.userInput !== "") {
+      dbref.push(messageObject)
       this.setState({ userInput: "" })
+
+      let element = document.querySelector('.windowBottom');
+      setTimeout(function () {
+        element.scrollIntoView();
+      }, 100);
     }
   }
 
   componentDidMount(){
-    const dbref = firebase.database().ref();
+    const dbref = firebase.database().ref("/chatDefault");
 
     dbref.on("value", (response) => {
-      // console.log(response.val())
 
       const defaultChat = [];
-
       const data = response.val();
 
       for (let key in data) {
         defaultChat.push({
           key: key, 
-          message: data[key],
-          dateCreated: new Date().toLocaleString("en-US") 
+          message: data[key].messageToBe,
+          dateCreated: data[key].timeOfMessage
         });
       }
 
       this.setState({
         chat: defaultChat,
-      })
+      }) 
     })
   }
 
@@ -63,25 +68,22 @@ class App extends Component {
         <section className="chatWindow">
 
           {this.state.chat.map((message) => {
-            return <p>{message.message} {message.dateCreated}</p>
+            return <div key={message.key}> <p>{message.message} {message.dateCreated}</p> </div>
           })}
+
+          <div className="windowBottom"></div>
         </section>
 
         <form action="submit">
           
-          <label htmlFor="send">type message</label>
-
-          {/* <textarea name="send" id="send" cols="30" rows="10" 
-          onChange={this.handleChange}
-          value={this.state.userInput} 
-          ></textarea> */}
+          <label htmlFor="send">type message:</label>
 
           <input type="text" name="send" id="send" 
             onChange={this.handleChange}
             value={this.state.userInput} 
           />
 
-          <button name="send" onClick={this.handleSubmit} type="submit">Send:</button>
+          <button name="send" onClick={this.handleSubmit} type="submit">Send</button>
 
         </form>
       </main>
