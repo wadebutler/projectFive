@@ -32,10 +32,7 @@ class App extends Component {
       dbref.push(messageObject)
       this.setState({ userInput: "" })
 
-      let element = document.querySelector('.windowBottom');
-      setTimeout(function () {
-        element.scrollIntoView();
-      }, 100);
+      
     }
   }
 
@@ -58,6 +55,12 @@ class App extends Component {
       this.setState({
         chat: defaultChat,
       }) 
+
+      let element = document.querySelector('.windowBottom');
+      setTimeout(function () {
+        element.scrollIntoView();
+      }, 100);
+      
     })
   }
 
