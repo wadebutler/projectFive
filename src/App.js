@@ -7,42 +7,82 @@ class App extends Component {
     super();
     this.state = {
       chat: [],
-      userInput: "",
+      userMessage: "",
+      userName: "",
     }
   }
 
   // save your typed message in a userInput state
-  handleChange = (event) => {
+  handleMessageChange = (event) => {
     event.preventDefault();
 
-    this.setState({ userInput: event.target.value })
+    this.setState({ userMessage: event.target.value })
+  }
+
+  handleNameChange = (event) => {
+    event.preventDefault();
+
+    this.setState({ userName: event.target.value })
+  }
+
+  handleNameSubmit = (event) => {
+    event.preventDefault();
+
+
+
+    // const dbref = firebase.database().ref("/userNames");
+
+    // const nameObject = {
+    //   "nameToBe": this.state.userName,
+    // }
+
+    // if (this.state.userName !== "") {
+    //   dbref.push(nameObject)
+    // }
   }
 
   // submit your message to database
-  handleSubmit = (event) => {
+  handleMessageSubmit = (event) => {
     event.preventDefault();
     
     const dbref = firebase.database().ref("/chatDefault");
     const messageObject = {
-      "messageToBe": this.state.userInput,
+      "messageToBe": this.state.userMessage,
       "timeOfMessage": new Date().toLocaleString("en-US"),
+      "nowTime": Date.now(),
     }
-    
-    if (this.state.userInput !== "") {
-      dbref.push(messageObject)
-      this.setState({ userInput: "" })
 
-      
+
+    
+    if (this.state.userMessage !== "") {
+      dbref.push(messageObject)
+      this.setState({ userMessage: "" })
     }
+
+    // const now = Date.now();
+    // const cutoff = now - 2 * 60 * 60 * 1000;
+
+    // console.log(messageObject.timeOfMessage)
+
+    // this.state.chat.forEach(() => {
+    //   if (now >= cutoff) {
+    //   }
+    // })
   }
 
   componentDidMount(){
     const dbref = firebase.database().ref("/chatDefault");
+    // this.setState({ chat: dbref})
+    // console.log(this.state.chat)
+    // dbref.on("value", (responce) => {
+      // console.log(responce.val())
+      
+    // })
 
-    dbref.on("value", (response) => {
+    dbref.on("value", (snapshot) => {
 
       const defaultChat = [];
-      const data = response.val();
+      const data = snapshot.val();
 
       for (let key in data) {
         defaultChat.push({
@@ -60,34 +100,39 @@ class App extends Component {
       setTimeout(function () {
         element.scrollIntoView();
       }, 100);
-      
+
     })
   }
 
   render(){
     return(
       <main>
+        <form>
+          <label htmlFor="username">Username:</label>
+          <input id="username" type="text"
+          onChange={this.handleNameChange}
+          />
+          <button onClick={this.handleNameSubmit} type="submit">Chat!</button>
+        </form>
 
         <section className="chatWindow">
 
           {this.state.chat.map((message) => {
-            return <div key={message.key}> <p>{message.message} {message.dateCreated}</p> </div>
+            return <div key={message.key}> <span>{this.state.userName}</span> <p>{message.message} {message.dateCreated}</p> </div>
           })}
 
           <div className="windowBottom"></div>
         </section>
 
-        <form action="submit">
-          
+        <form>
           <label htmlFor="send">type message:</label>
-
-          <input type="text" name="send" id="send" 
-            onChange={this.handleChange}
-            value={this.state.userInput} 
+          
+          <input type="text" id="send" 
+            onChange={this.handleMessageChange}
+            value={this.state.userMessage} 
           />
 
-          <button name="send" onClick={this.handleSubmit} type="submit">Send</button>
-
+          <button onClick={this.handleMessageSubmit} type="submit">Send</button>
         </form>
       </main>
     )
