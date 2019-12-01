@@ -86,11 +86,11 @@ class App extends Component {
 
   render(){
     return(
-      <div className=" wrapper">
+      <div>
         <header>
           <h1>Quick Chat</h1>
         </header>
-        <main>
+        <main className=" wrapper">
           <form className="usernameForm">
             <input placeholder="username" id="username" type="text" onChange={this.handleNameChange} />
             <label  htmlFor="username">Username</label>
@@ -121,7 +121,7 @@ class App extends Component {
           </form>
         </main>
         <footer>
-          <p>wade butler 2019 ©</p> 
+          <h2>wade butler 2019 ©</h2> 
         </footer>
       </div>
     )
