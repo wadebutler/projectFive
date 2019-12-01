@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import "./styles/App.css";
+import { HuePicker } from "react-color"
 import firebase from "./firebase";
+
+
 
 class App extends Component {
   constructor(){
@@ -9,7 +12,20 @@ class App extends Component {
       chat: [],
       userMessage: "",
       userName: "",
+      color: "#000000",
     }
+  } 
+
+  handleNameChange = (event) => {
+    event.preventDefault();
+
+    this.setState({ userName: event.target.value })
+  }
+
+  handleColor = (color) => {
+    // event.preventDefault();
+
+    this.setState({color: color.hex})
   }
 
   // save your typed message in a userInput state
@@ -19,37 +35,17 @@ class App extends Component {
     this.setState({ userMessage: event.target.value })
   }
 
-  handleNameChange = (event) => {
-    event.preventDefault();
-
-    this.setState({ userName: event.target.value })
-  }
-
-  handleNameSubmit = (event) => {
-    event.preventDefault();
-
-
-
-    // const dbref = firebase.database().ref("/userNames");
-
-    // const nameObject = {
-    //   "nameToBe": this.state.userName,
-    // }
-
-    // if (this.state.userName !== "") {
-    //   dbref.push(nameObject)
-    // }
-  }
-
   // submit your message to database
   handleMessageSubmit = (event) => {
     event.preventDefault();
     
     const dbref = firebase.database().ref("/chatDefault");
     const messageObject = {
+      "userNameToBe": this.state.userName,
       "messageToBe": this.state.userMessage,
       "timeOfMessage": new Date().toLocaleString("en-US"),
-      "nowTime": Date.now(),
+      "colorToBe": this.state.color,
+      // "nowTime": Date.now(),
     }
 
 
@@ -58,26 +54,10 @@ class App extends Component {
       dbref.push(messageObject)
       this.setState({ userMessage: "" })
     }
-
-    // const now = Date.now();
-    // const cutoff = now - 2 * 60 * 60 * 1000;
-
-    // console.log(messageObject.timeOfMessage)
-
-    // this.state.chat.forEach(() => {
-    //   if (now >= cutoff) {
-    //   }
-    // })
   }
 
   componentDidMount(){
     const dbref = firebase.database().ref("/chatDefault");
-    // this.setState({ chat: dbref})
-    // console.log(this.state.chat)
-    // dbref.on("value", (responce) => {
-      // console.log(responce.val())
-      
-    // })
 
     dbref.on("value", (snapshot) => {
 
@@ -87,8 +67,10 @@ class App extends Component {
       for (let key in data) {
         defaultChat.push({
           key: key, 
+          username: data[key].userNameToBe,
           message: data[key].messageToBe,
-          dateCreated: data[key].timeOfMessage
+          dateCreated: data[key].timeOfMessage,
+          color: data[key].colorToBe
         });
       }
 
@@ -106,35 +88,44 @@ class App extends Component {
 
   render(){
     return(
-      <main>
-        <form>
-          <label htmlFor="username">Username:</label>
-          <input id="username" type="text"
-          onChange={this.handleNameChange}
-          />
-          <button onClick={this.handleNameSubmit} type="submit">Chat!</button>
-        </form>
+      <div>
+        <header>
+          <h1>Quick Chat</h1>
+        </header>
+        <main>
+          <form className="usernameForm">
+            <input placeholder="username" id="username" type="text" onChange={this.handleNameChange} />
+            <label  htmlFor="username">Username</label>
+            <HuePicker className="colorPicker" color={this.state.color} onChange={this.handleColor} />
+          </form>
 
-        <section className="chatWindow">
+          <section className="chatWindow">
+            {this.state.chat.map((message) => {
+              return <div className="messageMaster" key={message.key}> 
+                        <p 
+                        style={{ color: message.color }} 
+                        className="username">{message.username}:
+                        </p> 
+                        <p className="message">{message.message}</p>
+                        <p className="date">{message.dateCreated}</p>
+                    </div>
+            })}
+            <div className="windowBottom"></div>
+          </section>
 
-          {this.state.chat.map((message) => {
-            return <div key={message.key}> <span>{this.state.userName}</span> <p>{message.message} {message.dateCreated}</p> </div>
-          })}
-
-          <div className="windowBottom"></div>
-        </section>
-
-        <form>
-          <label htmlFor="send">type message:</label>
-          
-          <input type="text" id="send" 
-            onChange={this.handleMessageChange}
-            value={this.state.userMessage} 
-          />
-
-          <button onClick={this.handleMessageSubmit} type="submit">Send</button>
-        </form>
-      </main>
+          <form>
+            <label className="visuallyHidden" htmlFor="send">type message:</label>
+            <input type="text" id="send"
+              onChange={this.handleMessageChange}
+              value={this.state.userMessage}
+            />
+            <button onClick={this.handleMessageSubmit} type="submit">Send</button>
+          </form>
+        </main>
+        <footer>
+          <p>wade butler 2019 ©</p> 
+        </footer>
+      </div>
     )
   }
 }
