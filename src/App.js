@@ -3,8 +3,6 @@ import "./styles/App.css";
 import { HuePicker } from "react-color"
 import firebase from "./firebase";
 
-
-
 class App extends Component {
   constructor(){
     super();
@@ -12,7 +10,7 @@ class App extends Component {
       chat: [],
       userMessage: "",
       userName: "",
-      color: "#000000",
+      color: "#fff",
     }
   } 
 
@@ -88,7 +86,7 @@ class App extends Component {
 
   render(){
     return(
-      <div>
+      <div className=" wrapper">
         <header>
           <h1>Quick Chat</h1>
         </header>
@@ -113,7 +111,7 @@ class App extends Component {
             <div className="windowBottom"></div>
           </section>
 
-          <form>
+          <form className="messageForm"> 
             <label className="visuallyHidden" htmlFor="send">type message:</label>
             <input type="text" id="send"
               onChange={this.handleMessageChange}
