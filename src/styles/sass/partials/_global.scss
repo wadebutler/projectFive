@@ -11,10 +11,21 @@ html {
     background: $secondaryColor;
 }
 
-// input {
-//     background: rgb(77, 77, 77);
-// }
+// only use with channel buttons
+.main {
+    display: flex;
+}
 
-// ::-webkit-input-placeholder {
-//     color: rgba(255, 255, 255, 0.5);
-// }
+main {
+    width: 100%;
+}
+
+aside {
+    margin: 0px 40px;
+
+    button {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+}

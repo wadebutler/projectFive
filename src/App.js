@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import "./styles/App.css";
 import { HuePicker } from "react-color"
 import firebase from "./firebase";
+import Footer from "./Component/Footer";
+import Header from "./Component/Header";
+
 
 class App extends Component {
   constructor(){
@@ -11,6 +14,8 @@ class App extends Component {
       userMessage: "",
       userName: "",
       color: "#fff",
+      channelNumber: 1,
+      newChannel: 1,
     }
   } 
 
@@ -37,25 +42,49 @@ class App extends Component {
   handleMessageSubmit = (event) => {
     event.preventDefault();
     
-    const dbref = firebase.database().ref("/1");
+    const dbref = firebase.database().ref(this.state.channelNumber);
     const messageObject = {
       "userNameToBe": this.state.userName,
       "messageToBe": this.state.userMessage,
       "timeOfMessage": new Date().toLocaleString("en-US"),
       "colorToBe": this.state.color,
-      // "nowTime": Date.now(),
+      "dateCompare": Date.now(),
     }
 
-
-    
     if (this.state.userMessage !== "") {
       dbref.push(messageObject)
       this.setState({ userMessage: "" })
     }
   }
 
-  componentDidMount(){
-    const dbref = firebase.database().ref("/1");
+  channelChange = (event) => {
+    const dbrefOld = firebase.database().ref(this.state.channelNumber);
+    dbrefOld.off("value");
+    // console.log(event.target.value)
+
+    this.setState({
+      
+      channelNumber: event.target.value,
+    }, () => {
+      
+      this.chatMaker();
+    })
+
+  }
+
+  chatMaker = () => {
+
+    const dbref = firebase.database().ref(this.state.channelNumber);
+
+    const cutoff = Date.now() - 86400000;
+
+    dbref.once("value", () => {
+      this.state.chat.forEach((message) => {
+        if (message.compare < cutoff) {
+            dbref.remove()
+        }
+      })
+    })
 
     dbref.on("value", (snapshot) => {
 
@@ -68,13 +97,14 @@ class App extends Component {
           username: data[key].userNameToBe,
           message: data[key].messageToBe,
           dateCreated: data[key].timeOfMessage,
-          color: data[key].colorToBe
+          color: data[key].colorToBe,
+          compare: data[key].dateCompare,
         });
       }
 
       this.setState({
         chat: defaultChat,
-      }) 
+      })
 
       let element = document.querySelector('.windowBottom');
       setTimeout(function () {
@@ -84,26 +114,21 @@ class App extends Component {
     })
   }
 
+  componentDidMount(){
+    this.chatMaker();
+  }
+
   render(){
     return(
       <div className="master">
-        <header>
-          <h1 style={{ color: this.state.color }} >Quick Chat</h1>
-        </header>
-        <main className=" wrapper">
-          <form className="usernameForm">
-            <input placeholder="username" id="username" type="text" onChange={this.handleNameChange} />
-            <label  htmlFor="username">Username</label>
-            <HuePicker className="colorPicker" color={this.state.color} onChange={this.handleColor} />
-          </form>
-          <div className="main">
-            {/* <section className="channelChange">
-              <button>channel 1</button>
-              <button>channel 2</button>
-              <button>channel 3</button>
-              <button>channel 4</button>
-              <button>channel 5</button>
-            </section> */}
+        <Header color={this.state.color}/>
+        <div className="main">
+          <main className=" wrapper">
+            <form className="usernameForm">
+              <input placeholder="username" id="username" type="text" onChange={this.handleNameChange} />
+              <label htmlFor="username">Username</label>
+              <HuePicker className="colorPicker" color={this.state.color} onChange={this.handleColor} />
+            </form>
 
             <section className="chatWindow">
               {this.state.chat.map((message) => {
@@ -118,21 +143,33 @@ class App extends Component {
               })}
               <div className="windowBottom"></div>
             </section>
-          </div>
 
-          <form className="messageForm"> 
-            <label className="visuallyHidden" htmlFor="send">type message:</label>
-            <input type="text" id="send"
-              placeholder="message"
-              onChange={this.handleMessageChange}
-              value={this.state.userMessage}
-            />
-            <button onClick={this.handleMessageSubmit} type="submit">Send</button>
-          </form>
-        </main>
-        <footer>
-          <h2>wade butler 2019 ©</h2> 
-        </footer>
+            <form className="messageForm">
+              <label className="visuallyHidden" htmlFor="send">type message:</label>
+              <input type="text" id="send"
+                placeholder="message"
+                onChange={this.handleMessageChange}
+                value={this.state.userMessage}
+              />
+              <button onClick={this.handleMessageSubmit} type="submit">Send</button>
+            </form>
+          </main>
+          <aside>
+            <section className="channelChange">
+              <button onClick={this.channelChange} value="1" >channel 1</button>
+              <button onClick={this.channelChange} value="2" >channel 2</button>
+              <button onClick={this.channelChange} value="3" >channel 3</button>
+              <button onClick={this.channelChange} value="4" >channel 4</button>
+              <button onClick={this.channelChange} value="5" >channel 5</button>
+              <button onClick={this.channelChange} value="6" >channel 6</button>
+              <button onClick={this.channelChange} value="7" >channel 7</button>
+              <button onClick={this.channelChange} value="8" >channel 8</button>
+              <button onClick={this.channelChange} value="9" >channel 9</button>
+              <button onClick={this.channelChange} value="10" >channel 10</button>
+            </section>
+          </aside>
+        </div>
+        <Footer />
       </div>
     )
   }
