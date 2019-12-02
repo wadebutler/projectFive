@@ -37,7 +37,7 @@ class App extends Component {
   handleMessageSubmit = (event) => {
     event.preventDefault();
     
-    const dbref = firebase.database().ref("/chatDefault");
+    const dbref = firebase.database().ref("/1");
     const messageObject = {
       "userNameToBe": this.state.userName,
       "messageToBe": this.state.userMessage,
@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    const dbref = firebase.database().ref("/chatDefault");
+    const dbref = firebase.database().ref("/1");
 
     dbref.on("value", (snapshot) => {
 
@@ -86,9 +86,9 @@ class App extends Component {
 
   render(){
     return(
-      <div>
+      <div className="master">
         <header>
-          <h1>Quick Chat</h1>
+          <h1 style={{ color: this.state.color }} >Quick Chat</h1>
         </header>
         <main className=" wrapper">
           <form className="usernameForm">
@@ -96,24 +96,34 @@ class App extends Component {
             <label  htmlFor="username">Username</label>
             <HuePicker className="colorPicker" color={this.state.color} onChange={this.handleColor} />
           </form>
+          <div className="main">
+            {/* <section className="channelChange">
+              <button>channel 1</button>
+              <button>channel 2</button>
+              <button>channel 3</button>
+              <button>channel 4</button>
+              <button>channel 5</button>
+            </section> */}
 
-          <section className="chatWindow">
-            {this.state.chat.map((message) => {
-              return <div className="messageMaster" key={message.key}> 
-                        <p 
-                        style={{ color: message.color }} 
-                        className="username">{message.username}:
-                        </p> 
-                        <p className="message">{message.message}</p>
-                        <p className="date">{message.dateCreated}</p>
-                    </div>
-            })}
-            <div className="windowBottom"></div>
-          </section>
+            <section className="chatWindow">
+              {this.state.chat.map((message) => {
+                return <div className="messageMaster" key={message.key}>
+                  <p
+                    style={{ color: message.color }}
+                    className="username">{message.username}:
+                        </p>
+                  <p className="message">{message.message}</p>
+                  <p className="date">{message.dateCreated}</p>
+                </div>
+              })}
+              <div className="windowBottom"></div>
+            </section>
+          </div>
 
           <form className="messageForm"> 
             <label className="visuallyHidden" htmlFor="send">type message:</label>
             <input type="text" id="send"
+              placeholder="message"
               onChange={this.handleMessageChange}
               value={this.state.userMessage}
             />

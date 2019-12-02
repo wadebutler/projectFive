@@ -1,10 +1,6 @@
 h2 {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    color: white;
-    background: black;
+    color: $accentColor;
+    background: $primaryColor;
     text-align: center;
     margin: 0;
     padding: 10px;
