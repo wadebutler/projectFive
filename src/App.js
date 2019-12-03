@@ -4,8 +4,6 @@ import { HuePicker } from "react-color"
 import firebase from "./firebase";
 import Footer from "./Component/Footer";
 import Header from "./Component/Header";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 class App extends Component {
   constructor(){
@@ -20,14 +18,15 @@ class App extends Component {
     }
   } 
 
+  // saves username to state
   handleNameChange = (event) => {
     event.preventDefault();
 
     this.setState({ userName: event.target.value })
   }
 
+  // saves color slider to state
   handleColor = (color) => {
-    // event.preventDefault();
 
     this.setState({color: color.hex})
   }
@@ -58,10 +57,10 @@ class App extends Component {
     }
   }
 
+  // be able to change chat room
   channelChange = (event) => {
     const dbrefOld = firebase.database().ref(this.state.channelNumber);
     dbrefOld.off("value");
-    // console.log(event.target.value)
 
     this.setState({
       
@@ -77,8 +76,9 @@ class App extends Component {
 
     const dbref = firebase.database().ref(this.state.channelNumber);
 
+    // removes chat objects from chat/database after 24 hours
     const cutoff = Date.now() - 86400000;
-
+    
     dbref.once("value", () => {
       this.state.chat.forEach((message) => {
         if (message.compare < cutoff) {
@@ -87,8 +87,8 @@ class App extends Component {
       })
     })
 
+    // builds chat object
     dbref.on("value", (snapshot) => {
-
       const defaultChat = [];
       const data = snapshot.val();
 
@@ -107,6 +107,7 @@ class App extends Component {
         chat: defaultChat,
       })
 
+      // scrolls the chat to the bottom of the chat window when an object is sent to the database
       let element = document.querySelector('.windowBottom');
       setTimeout(function () {
         element.scrollIntoView();
@@ -115,7 +116,7 @@ class App extends Component {
     })
   }
 
-  componentDidMount(event){
+  componentDidMount(){
     this.chatMaker();
   }
 
@@ -123,7 +124,6 @@ class App extends Component {
     return(
       <div className="master">
         <Header color={this.state.color}/>
-        {/* <FontAwesomeIcon icon="faCoffee" /> */}
         <div className="main">
           <main className=" wrapper">
             <form className="usernameForm">
