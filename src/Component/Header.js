@@ -5,7 +5,7 @@ class Header extends Component {
         // console.log(this.props)
         return (
             <header>
-                <h1>Rocko's Modern Chat</h1>
+                <h1>QuickChat</h1>
                 
             </header>
         )
