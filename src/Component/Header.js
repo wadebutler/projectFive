@@ -6,7 +6,6 @@ class Header extends Component {
         return (
             <header>
                 <h1>QuickChat</h1>
-                
             </header>
         )
     }

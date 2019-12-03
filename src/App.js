@@ -4,6 +4,8 @@ import { HuePicker } from "react-color"
 import firebase from "./firebase";
 import Footer from "./Component/Footer";
 import Header from "./Component/Header";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 class App extends Component {
   constructor(){
@@ -121,6 +123,7 @@ class App extends Component {
     return(
       <div className="master">
         <Header color={this.state.color}/>
+        {/* <FontAwesomeIcon icon="faCoffee" /> */}
         <div className="main">
           <main className=" wrapper">
             <form className="usernameForm">
