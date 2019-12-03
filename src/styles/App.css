@@ -433,6 +433,9 @@ h2 {
   .chatWindow {
     width: 100%;
   }
+  .chatWindow .date {
+    font-size: 5px;
+  }
   .messageForm {
     width: 100%;
   }
