@@ -18,6 +18,11 @@ class App extends Component {
     }
   } 
 
+  // keep the page from refreshing on form submit
+  handleUsernameSubmit = (event) => {
+    event.preventDefault();
+  }
+
   // saves username to state
   handleNameChange = (event) => {
     event.preventDefault();
@@ -126,7 +131,7 @@ class App extends Component {
         <Header color={this.state.color}/>
         <div className="main">
           <main className=" wrapper">
-            <form className="usernameForm">
+            <form className="usernameForm" onSubmit={this.handleUsernameSubmit}>
               <input style={{ color: this.state.color }} placeholder="username" id="username" type="text" onChange={this.handleNameChange} />
               <label style={{color: this.state.color }} htmlFor="username">Username</label>
               <HuePicker width="300px" className="colorPicker" color={this.state.color} onChange={this.handleColor} />
