@@ -203,21 +203,11 @@ main {
   width: 100%;
 }
 
-aside {
-  margin: 0px 40px;
-}
-
-aside button {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-}
-
 .chatWindow {
   height: 350px;
   width: 70%;
   overflow-y: scroll;
-  background: #4d4d4d;
+  background: #484c50;
   font-size: 2rem;
   margin: 0 auto;
   border-radius: 10px 10px 0 0;
@@ -230,7 +220,7 @@ aside button {
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  background: #4d4d4d;
+  background: #484c50;
   border-top: 2px solid black;
   border-bottom: 2px solid black;
   color: white;
@@ -268,14 +258,20 @@ aside button {
           align-items: center;
 }
 
+.usernameForm .channelIndicator {
+  font-size: 2rem;
+  margin: 10px;
+  color: white;
+  font-weight: bold;
+}
+
 .usernameForm label {
   font-size: 2rem;
   position: relative;
-  top: -49px;
-  left: -33px;
+  top: -50px;
   font-weight: bold;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   text-transform: uppercase;
 }
 
@@ -284,7 +280,10 @@ aside button {
   padding: 20px 0px 5px 6px;
   border: 4px solid black;
   border-radius: 10px;
-  margin-top: 12px;
+  text-align: center;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background: #484c50;
 }
 
 .usernameForm input:focus + label {
@@ -294,7 +293,31 @@ aside button {
 .usernameForm .colorPicker {
   border: 4px solid black;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin: 2px;
+}
+
+.usernameForm ::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: white;
+  opacity: 0.5;
+}
+
+.usernameForm ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: white;
+  opacity: 0.5;
+}
+
+.usernameForm :-ms-input-placeholder {
+  /* IE 10+ */
+  color: white;
+  opacity: 0.5;
+}
+
+.usernameForm :-moz-placeholder {
+  /* Firefox 18- */
+  color: white;
+  opacity: 0.5;
 }
 
 .messageForm {
@@ -304,11 +327,10 @@ aside button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 20px;
 }
 
 .messageForm input {
-  width: 90%;
+  width: 85%;
   font-size: 2rem;
   border-radius: 0 0 0 10px;
   border: 4px solid black;
@@ -317,7 +339,7 @@ aside button {
 }
 
 .messageForm button {
-  width: 10%;
+  width: 15%;
   margin: 0;
   padding: 0;
   border-radius: 0 0 10px 0;
@@ -327,17 +349,17 @@ aside button {
 }
 
 h1 {
-  background: #4d4d4d;
+  background: #3E78B2;
   text-align: center;
   margin: 0;
-  margin-bottom: 10px;
-  padding: 15px;
+  padding: 25px;
   font-size: 5rem;
+  color: white;
 }
 
 h2 {
   color: white;
-  background: #4d4d4d;
+  background: #3E78B2;
   text-align: center;
   margin: 0;
   padding: 8px;
@@ -352,4 +374,93 @@ h2 {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.channelChange {
+  position: absolute;
+  right: 0;
+}
+
+.channelChange button {
+  margin: 10px 30px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 4px solid black;
+}
+
+@media (max-width: 1050px) {
+  .channelChange {
+    position: static;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .main {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media (max-width: 900px) {
+  .chatWindow {
+    width: 90%;
+  }
+  .messageForm {
+    width: 90%;
+  }
+}
+
+@media (max-width: 800px) {
+  .channelChange button {
+    margin: 10px 5px;
+  }
+}
+
+@media (max-width: 575px) {
+  html {
+    font-size: 50%;
+  }
+  .chatWindow {
+    width: 100%;
+  }
+  .messageForm {
+    width: 100%;
+  }
+  .usernameForm label {
+    top: -45px;
+  }
+  .usernameForm input:focus + label {
+    top: -70px;
+  }
+  .messageForm button {
+    width: 20%;
+  }
+  .messageForm input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 455px) {
+  .channelChange button {
+    margin: 5px 2px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 355px) {
+  html {
+    font-size: 45%;
+  }
+  .channelChange button {
+    margin: 5px 0;
+    padding: 5px;
+  }
 }

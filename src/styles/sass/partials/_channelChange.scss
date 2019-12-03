@@ -1,0 +1,14 @@
+.channelChange {
+    // display: flex;
+    position: absolute;
+    right: 0;
+
+    button {
+        margin: 10px 30px;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border: 4px solid $borderColor;
+    }
+}

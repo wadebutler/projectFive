@@ -1,0 +1,96 @@
+@media (max-width: 1050px) {
+    .channelChange {
+        position: static;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .main {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 900px) {
+    .chatWindow {
+        width: 90%;
+    }
+    .messageForm {
+        width: 90%;
+    }
+}
+
+@media (max-width: 800px) {
+    .channelChange {
+
+        button {
+            margin: 10px 5px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    html {
+        font-size: 50%;
+    }
+
+    .chatWindow {
+        width: 100%;
+    }
+
+    .messageForm {
+        width: 100%;
+    }
+
+    .usernameForm {
+
+        label {
+            top: -45px;
+        }
+
+        input:focus + label {
+            top: -70px;
+        }
+    }
+
+    .messageForm {
+
+        button {
+            width: 20%;
+        }
+
+        input {
+            width: 80%;
+        }
+    }
+}
+
+@media (max-width: 455px) {
+    .channelChange {
+
+        button {
+            margin: 5px 2px;
+            padding: 5px;
+        }
+    }
+
+    // .usernameForm {
+    //     .colorPicker {
+    //         border: none;
+    //         margin: 0;
+    //     }
+    // }
+}
+
+@media (max-width: 355px) {
+    html {
+        font-size: 45%;
+    }
+
+    .channelChange {
+
+        button {
+            margin: 5px 0;
+            padding: 5px;
+        }
+    }
+}

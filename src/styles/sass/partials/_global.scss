@@ -11,21 +11,10 @@ html {
     background: $secondaryColor;
 }
 
-// only use with channel buttons
 .main {
     display: flex;
 }
 
 main {
     width: 100%;
-}
-
-aside {
-    margin: 0px 40px;
-
-    button {
-        margin-bottom: 10px;
-        padding: 10px;
-        border-radius: 10px;
-    }
 }

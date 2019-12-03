@@ -5,7 +5,6 @@ import firebase from "./firebase";
 import Footer from "./Component/Footer";
 import Header from "./Component/Header";
 
-
 class App extends Component {
   constructor(){
     super();
@@ -114,7 +113,7 @@ class App extends Component {
     })
   }
 
-  componentDidMount(){
+  componentDidMount(event){
     this.chatMaker();
   }
 
@@ -125,9 +124,10 @@ class App extends Component {
         <div className="main">
           <main className=" wrapper">
             <form className="usernameForm">
-              <input placeholder="username" id="username" type="text" onChange={this.handleNameChange} />
-              <label htmlFor="username">Username</label>
-              <HuePicker className="colorPicker" color={this.state.color} onChange={this.handleColor} />
+              <input style={{ color: this.state.color }} placeholder="username" id="username" type="text" onChange={this.handleNameChange} />
+              <label style={{color: this.state.color }} htmlFor="username">Username</label>
+              <HuePicker width="300px" className="colorPicker" color={this.state.color} onChange={this.handleColor} />
+              <p className="channelIndicator">Chat Room: {this.state.channelNumber}</p>
             </form>
 
             <section className="chatWindow">
@@ -154,20 +154,14 @@ class App extends Component {
               <button onClick={this.handleMessageSubmit} type="submit">Send</button>
             </form>
           </main>
-          <aside>
-            <section className="channelChange">
-              <button onClick={this.channelChange} value="1" >channel 1</button>
-              <button onClick={this.channelChange} value="2" >channel 2</button>
-              <button onClick={this.channelChange} value="3" >channel 3</button>
-              <button onClick={this.channelChange} value="4" >channel 4</button>
-              <button onClick={this.channelChange} value="5" >channel 5</button>
-              <button onClick={this.channelChange} value="6" >channel 6</button>
-              <button onClick={this.channelChange} value="7" >channel 7</button>
-              <button onClick={this.channelChange} value="8" >channel 8</button>
-              <button onClick={this.channelChange} value="9" >channel 9</button>
-              <button onClick={this.channelChange} value="10" >channel 10</button>
-            </section>
-          </aside>
+          <section className="channelChange">
+            <button onClick={this.channelChange} value="1" >Chat Room 1</button>
+            <button onClick={this.channelChange} value="2" >Chat Room 2</button>
+            <button onClick={this.channelChange} value="3" >Chat Room 3</button>
+            <button onClick={this.channelChange} value="4" >Chat Room 4</button>
+            <button onClick={this.channelChange} value="5" >Chat Room 5</button>
+            <button onClick={this.channelChange} value="6" >Chat Room 6</button>
+          </section>
         </div>
         <Footer />
       </div>

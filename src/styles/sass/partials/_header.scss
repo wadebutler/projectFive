@@ -1,8 +1,9 @@
 h1 {
-    background: $primaryColor;
+    background: $secondaryColor;
     text-align: center;
     margin: 0;
-    margin-bottom: 10px;
-    padding: 15px;
+    padding: 25px;
     font-size: 5rem;
+    color: $accentColor;
+    // font-family: "Rocko";
 }

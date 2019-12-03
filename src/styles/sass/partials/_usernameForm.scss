@@ -2,15 +2,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // color: white;
+
+    .channelIndicator {
+        font-size: 2rem;
+        margin: 10px;
+        color: $accentColor;
+        font-weight: bold;
+    }
 
     label {
         font-size: 2rem;
         position: relative;
-        top: -49px;
-        left: -33px;
+        top: -50px;
         font-weight: bold;
-        transition: 0.5s;
+        transition: 0.3s;
         text-transform: uppercase;
     }
 
@@ -19,8 +24,9 @@
         padding: 20px 0px 5px 6px;
         border: 4px solid $borderColor;
         border-radius: 10px;
-        margin-top: 12px;
-        // color: $accentColor;
+        text-align: center;
+        transition: 0.3s;
+        background: $primaryColor;
     }
 
     input:focus + label {
@@ -30,6 +36,23 @@
     .colorPicker {
         border: 4px solid $borderColor;
         border-radius: 10px;
-        margin-bottom: 10px;
+        margin: 2px;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: $accentColor;
+        opacity: 0.5;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: $accentColor;
+        opacity: 0.5;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+        color: $accentColor;
+        opacity: 0.5;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+        color: $accentColor;
+        opacity: 0.5;
     }
 }
