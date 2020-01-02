@@ -1,10 +1,22 @@
-h1 {
-    background: $secondaryColor;
-    text-align: center;
-    margin: 0;
-    padding: 25px;
-    font-size: 7rem;
-    color: $accentColor;
-    font-family: Rocko;
-    text-shadow: 4px 4px black;
+header {
+    h1 {
+        background: $secondaryColor;
+        text-align: center;
+        margin: 0;
+        padding-top: 10px;
+        font-size: 7rem;
+        color: $accentColor;
+        font-family: Rocko;
+        text-shadow: 4px 4px black;
+    }
+
+    p {
+        color: $accentColor;
+        text-align: center;
+        margin: 0;
+        font-size: 3rem;
+        padding-bottom: 10px;
+        font-family: Rocko;
+        text-shadow: 1px 1px black;
+    }
 }

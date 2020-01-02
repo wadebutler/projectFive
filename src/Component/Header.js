@@ -6,6 +6,7 @@ class Header extends Component {
         return (
             <header>
                 <h1>QuickChat</h1>
+                <p>quick disposable group chat</p>
             </header>
         )
     }

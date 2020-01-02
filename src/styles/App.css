@@ -348,15 +348,25 @@ main {
   font-weight: bold;
 }
 
-h1 {
+header h1 {
   background: #3E78B2;
   text-align: center;
   margin: 0;
-  padding: 25px;
+  padding-top: 10px;
   font-size: 7rem;
   color: white;
   font-family: Rocko;
   text-shadow: 4px 4px black;
+}
+
+header p {
+  color: white;
+  text-align: center;
+  margin: 0;
+  font-size: 3rem;
+  padding-bottom: 10px;
+  font-family: Rocko;
+  text-shadow: 1px 1px black;
 }
 
 h2 {
